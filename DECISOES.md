@@ -1,0 +1,7 @@
+# Decisões de Arquitetura — Exercício 03
+
+- **DECISÃO 01 (Fronteira do Módulo):** Encapsulamos os 6 recursos da infraestrutura plana dentro do módulo local `./modules/lake` para isolar responsabilidades e permitir reuso, mantendo na raiz apenas a chamada do módulo e os 5 outputs de contrato.
+- **DECISÃO 02 (Movimentação do Estado):** Executamos o comando `terraform state mv` para remapear individualmente o endereço de cada um dos 6 recursos no arquivo de estado para o escopo do módulo, alterando apenas o mapeamento interno do Terraform sem efetuar chamadas ou modificações reais na AWS.
+- **DECISÃO 03 (Workspace × Pasta):** Optamos por utilizar workspaces nomeados do Terraform (ex.: `dev`) para alternar entre diferentes ambientes mantendo a mesma estrutura de código e o mesmo backend remoto S3, evitando a duplicação desnecessária de arquivos em pastas separadas.
+- **DECISÃO 04 (O que o Plan Limpo Prova):** O retorno `No changes` no `terraform plan` prova que a nova estrutura em módulos condiz 100% com os recursos já existentes na nuvem, garantindo refatoração com zero destruição ou recriação de infraestrutura.
+- **DECISÃO 05 (Impacto de um Apply Precoce):** Executar `terraform apply` antes de refletir a mudança de escopo no estado via `state mv` teria feito o Terraform interpretar o código novo como recursos inéditos e os antigos como removidos, destruindo e recriando toda a stack na AWS.
