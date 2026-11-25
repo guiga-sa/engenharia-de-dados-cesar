@@ -1,0 +1,10 @@
+﻿# Estado e segredos — nunca vão para o repositório.
+terraform/.terraform/
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/backend.hcl
+terraform/crash.log
+.terraform.tfstate.lock.info
+
+# Dado gerado localmente pelo carregar-raw.sh
+/tmp/
